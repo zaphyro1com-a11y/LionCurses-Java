@@ -3,7 +3,7 @@ package lioncurses;
 public class Color {
 
     //* Atributos */
-    //Constantes para el modo Color16
+    // Constantes para el modo Color16
     //-- Colores Normales
     public static final int BLACK = 30;
     public static final int RED = 31;
@@ -22,6 +22,30 @@ public class Color {
     public static final int B_MAGENTA = 35;
     public static final int B_CYAN = 36;
     public static final int B_WHITE = 37;
+    
+    // atributos para el modo rgb
+    private int red, green, blue;
+
+    //* Constructor */
+    // Color RGB
+    public Color(int red, int green, int blue){
+
+        if(red < 0 || red > 255){red = 0;}
+        if(green < 0 || green > 255){green = 0;}
+        if(blue < 0 || blue > 255){blue = 0;}
+
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+
+    }
+
+    //* Propiedades */
+    //propiedades modo rgb
+    public int getR(){return red;}
+    public int getG(){return green;}
+    public int getB(){return blue;}
+
 
     //* Metodos *
     // Cambiar color del foreground en modo COLOR16
@@ -173,6 +197,46 @@ public class Color {
 
     }
 
+    public static void printRGB(int fr, int fg, int fb, String str){
+
+        // Activar Colores
+        FGTC(fr, fg, fb);
+
+        // Imprimir Mensaje
+        System.out.print(str);
+
+        // Off
+        off();
+
+    }
+
+    public static void printRGB(Color c1, Color c2, String str){
+
+        // Activar Colores
+        FGTC(c1.getR(), c1.getG(), c1.getB());
+        BGTC(c2.getR(), c2.getG(), c2.getB());
+
+        // Imprimir Mensaje
+        System.out.print(str);
+
+        // Off
+        off();
+
+    }
+
+    public static void printRGB(Color c1, String str){
+
+        // Activar Colores
+        FGTC(c1.getR(), c1.getG(), c1.getB());
+
+        // Imprimir Mensaje
+        System.out.print(str);
+
+        // Off
+        off();
+
+    }
+
     // Imprime un mensaje con formato y lo colorea usando el modo TrueColor RGB
     public static void printfRGB(int fr, int fg, int fb, int br, int bg, int bb, String format, Object... args){
         // Activar Colores
@@ -181,6 +245,46 @@ public class Color {
         //Imprimir
         System.out.printf(format, args);
         //Apagar
+        off();
+
+    }
+
+    public static void printfRGB(int fr, int fg, int fb, String format, Object... args){
+
+        // Activar Colores
+        FGTC(fr, fg, fb);
+
+        //Imprimir
+        System.out.printf(format, args);
+        
+        //Apagar
+        off();
+
+    }
+
+    public static void printfRGB(Color c1, Color c2, String format, Object... args){
+
+        // Activar Colores
+        FGTC(c1.getR(), c1.getG(), c1.getB());
+        BGTC(c2.getR(), c2.getG(), c2.getB());
+
+        // Imprimir Mensaje
+        System.out.printf(format, args);
+
+        // Off
+        off();
+
+    }
+
+    public static void printfRGB(Color c1, String format, Object... args){
+
+        // Activar Colores
+        FGTC(c1.getR(), c1.getG(), c1.getB());
+
+        // Imprimir Mensaje
+        System.out.printf(format, args);
+
+        // Off
         off();
 
     }

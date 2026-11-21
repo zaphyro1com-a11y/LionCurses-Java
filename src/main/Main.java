@@ -1,15 +1,18 @@
 package main;
 
-import java.time.LocalTime;
-
 import lioncurses.Color;
+import lioncurses.Terminal;
 
 public class Main {
+
+    static Color green = new Color(0,255,0);
 
     public static void main(String[] args)
     throws InterruptedException {
 
         while(true){
+
+            Terminal.clear();
 
             double t =
                 System.currentTimeMillis()
@@ -32,6 +35,8 @@ public class Main {
                 "RGB(%d,%d,%d)\r",
                 r, g, b
             );
+
+            Color.printfRGB(green, "\nHola mundo\n\n\n");
 
             Thread.sleep(16);
         }
